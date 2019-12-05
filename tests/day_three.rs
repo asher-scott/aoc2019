@@ -5,7 +5,7 @@ mod tests {
 
     #[test]
     fn test_get_distance_between_closest_intersection_and_start() {
-        use aoc2019::day_three::get_distance_between_closest_intersect_and_start;
+        use aoc2019::day_three::get_distance_between_closest_intersect_and_start_and_shortest_steps;
 
         let test_case_one_wire_one = "R8,U5,L5,D3";
         let test_case_one_wire_two = "U7,R6,D4,L4";
@@ -16,18 +16,22 @@ mod tests {
         let test_case_three_wire_one = "R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51";
         let test_case_three_wire_two = "U98,R91,D20,R16,D67,R40,U7,R15,U6,R7";
 
-        let test_case_one_distance = get_distance_between_closest_intersect_and_start(test_case_one_wire_one, test_case_one_wire_two);
-        let test_case_two_distance = get_distance_between_closest_intersect_and_start(test_case_two_wire_one, test_case_two_wire_two);
-        let test_case_three_distance = get_distance_between_closest_intersect_and_start(test_case_three_wire_one, test_case_three_wire_two);
+        let (test_case_one_distance, test_case_one_steps) = get_distance_between_closest_intersect_and_start_and_shortest_steps(test_case_one_wire_one, test_case_one_wire_two);
+        let (test_case_two_distance, test_case_two_steps) = get_distance_between_closest_intersect_and_start_and_shortest_steps(test_case_two_wire_one, test_case_two_wire_two);
+        let (test_case_three_distance, test_case_three_steps) = get_distance_between_closest_intersect_and_start_and_shortest_steps(test_case_three_wire_one, test_case_three_wire_two);
 
         assert_eq!(test_case_one_distance, 6);
         assert_eq!(test_case_two_distance, 159);
         assert_eq!(test_case_three_distance, 135);
+
+        assert_eq!(test_case_one_steps, 30);
+        assert_eq!(test_case_two_steps, 610);
+        assert_eq!(test_case_three_steps, 410);
     }
 
     #[test]
     fn day_three_part_one() {
-        use aoc2019::day_three::get_distance_between_closest_intersect_and_start;
+        use aoc2019::day_three::get_distance_between_closest_intersect_and_start_and_shortest_steps;
         use std::fs::File;
         use std::io::Read;
 
@@ -37,8 +41,14 @@ mod tests {
 
         let wires: Vec<&str> = input.split("\n").collect();
 
-        let distance = get_distance_between_closest_intersect_and_start(wires[0], wires[1]);
+        let (distance, steps) = get_distance_between_closest_intersect_and_start_and_shortest_steps(wires[0], wires[1]);
 
         println!("Smallest Manhatten Distance from central port - {}", distance);
+        println!("Smallest Amount of steps for intersections - {}", steps);
+    }
+
+    #[test]
+    fn day_three_part_two() {
+        
     }
 }
